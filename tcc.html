@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Site com Integração VLibras - TCC</title>
+    <link rel="stylesheet" href="style.css" />
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background: #f4f4f4;
+        }
+        header {
+            background: #0367a6;
+            padding: 20px;
+            color: #fff;
+            text-align: center;
+        }
+        main {
+            padding: 20px;
+            max-width: 900px;
+            margin: auto;
+            background: #fff;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+        }
+        h1, h2 {
+            color: #0367a6;
+        }
+
+        /* Botão de voltar */
+        .btn-voltar {
+            display: inline-block;
+            padding: 10px 15px;
+            background: #0367a6;
+            color: white;
+            text-decoration: none;
+            border-radius: 5px;
+            margin-bottom: 20px;
+            font-weight: bold;
+            transition: .3s;
+        }
+        .btn-voltar:hover {
+            background: #024c7a;
+        }
+
+        /* Blocos clicáveis */
+        .bloco {
+            background: #e8f4fb;
+            padding: 15px;
+            border-left: 5px solid #0367a6;
+            border-radius: 5px;
+            margin-bottom: 15px;
+            cursor: pointer;
+            transition: .3s;
+        }
+        .bloco:hover {
+            background: #d9eef9;
+        }
+
+        .conteudo {
+            display: none;
+            padding: 15px;
+            background: #fdfdfd;
+            border-left: 3px solid #9bd0ee;
+            margin-bottom: 20px;
+            border-radius: 5px;
+        }
+    </style>
+</head>
+<body>
+
+<header>
+    <h1>Sistema Web com VLibras</h1>
+    <p>Projeto de TCC com foco em acessibilidade para pessoas surdas</p>
+</header>
+
+<main>
+
+    <!-- BOTÃO VOLTAR AO INDEX -->
+    <a href="index.html" class="btn-voltar">⟵ Voltar ao Início</a>
+
+    <h2>Menu do TCC</h2>
+    <p>Clique nos blocos abaixo para abrir os conteúdos.</p>
+
+    <!-- BLOCO 1 -->
+    <div class="bloco" onclick="toggle('intro')">
+        <h3>Introdução</h3>
+    </div>
+    <div id="intro" class="conteudo">
+        <p>
+            Esta introdução apresenta a importância da acessibilidade digital, com foco no uso do VLibras
+            como ferramenta de inclusão para pessoas surdas. O objetivo é demonstrar como a tecnologia pode
+            auxiliar na democratização da informação.
+        </p>
+    </div>
+
+    <!-- BLOCO 2 -->
+    <div class="bloco" onclick="toggle('objetivo')">
+        <h3>Objetivo do Projeto</h3>
+    </div>
+    <div id="objetivo" class="conteudo">
+        <p>
+            O sistema tem como objetivo oferecer um ambiente acessível, integrando o VLibras para traduzir textos,
+            botões e conteúdos em Libras, garantindo inclusão e acessibilidade ao usuário final.
+        </p>
+    </div>
+
+    <!-- BLOCO 3 -->
+    <div class="bloco" onclick="toggle('fundamentacao')">
+        <h3>Fundamentação Teórica</h3>
+    </div>
+    <div id="fundamentacao" class="conteudo">
+        <p>
+            Aqui você pode descrever conceitos sobre Libras, acessibilidade digital, legislação,
+            tecnologia assistiva e referências que sustentam o desenvolvimento do TCC.
+        </p>
+    </div>
+
+    <!-- BLOCO 4 -->
+    <div class="bloco" onclick="toggle('metodologia')">
+        <h3>Metodologia</h3>
+    </div>
+    <div id="metodologia" class="conteudo">
+        <p>
+            A metodologia descreve as etapas do projeto, ferramentas utilizadas, técnicas de desenvolvimento
+            e os métodos aplicados para validar o sistema de acessibilidade.
+        </p>
+    </div>
+
+    <!-- BLOCO 5 -->
+    <div class="bloco" onclick="toggle('conclusao')">
+        <h3>Conclusão</h3>
+    </div>
+    <div id="conclusao" class="conteudo">
+        <p>
+            A conclusão resume os resultados obtidos e demonstra a importância da acessibilidade digital,
+            reforçando que o VLibras é uma ferramenta essencial para inclusão social.
+        </p>
+    </div>
+
+</main>
+
+<!-- VLibras -->
+<div vw class="enabled">
+    <div vw-access-button class="active"></div>
+    <div vw-plugin-wrapper>
+        <div class="vw-plugin-top-wrapper"></div>
+    </div>
+</div>
+<script src="https://vlibras.gov.br/app/vlibras-plugin.js"></script>
+<script>
+    new window.VLibras.Widget('https://vlibras.gov.br/app');
+</script>
+
+<!-- Script dos blocos -->
+<script>
+    function toggle(id) {
+        const box = document.getElementById(id);
+        box.style.display = box.style.display === "block" ? "none" : "block";
+    }
+</script>
+
+</body>
+</html>

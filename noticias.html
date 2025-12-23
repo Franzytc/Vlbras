@@ -1,0 +1,479 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Portal de Notícias Acessível — TCC</title>
+  <meta name="description" content="Portal de notícias acessível com VLibras — projeto de TCC" />
+
+  <style>
+    :root{
+      --primary:#0367a6;
+      --primary-dark:#024c7a;
+      --muted:#6b7c86;
+      --card-bg:#ffffff;
+      --surface:#f5fbff;
+      --radius:12px;
+      --gap:18px;
+      --maxw:1200px;
+      --shadow: 0 8px 24px rgba(3,103,166,0.08);
+    }
+
+    *{box-sizing:border-box}
+    html,body{height:100%}
+    body{
+      margin:0;
+      font-family: Inter, "Segoe UI", Roboto, Arial, sans-serif;
+      background: linear-gradient(180deg,#f0fbff 0%, #f7fff9 100%);
+      color:#0b2b3a;
+      -webkit-font-smoothing:antialiased;
+      -moz-osx-font-smoothing:grayscale;
+      line-height:1.45;
+    }
+
+    /* Top bar / header */
+    .topbar{
+      background:var(--primary);
+      color:#fff;
+      padding:18px 12px;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.08);
+      position:sticky;
+      top:0;
+      z-index:60;
+    }
+    .topbar .wrap{
+      max-width:var(--maxw);
+      margin:auto;
+      display:flex;
+      gap:12px;
+      align-items:center;
+      justify-content:space-between;
+    }
+    .brand{
+      display:flex;
+      gap:12px;
+      align-items:center;
+      text-decoration:none;
+      color:white;
+    }
+    .logo{
+      width:44px;height:44px;border-radius:8px;
+      background:linear-gradient(135deg,#00b4ff,#0077b6);
+      display:flex;align-items:center;justify-content:center;
+      font-weight:700;color:white;font-size:18px;
+      box-shadow: 0 6px 14px rgba(0,0,0,0.12);
+    }
+    .brand h1{font-size:18px;margin:0}
+    .brand p{margin:0;font-size:12px;opacity:0.95}
+
+    /* nav / search */
+    .nav-actions{
+      display:flex;
+      gap:12px;
+      align-items:center;
+    }
+    .search {
+      display:flex;
+      align-items:center;
+      background:#fff;
+      border-radius:999px;
+      padding:6px 10px;
+      box-shadow: 0 4px 14px rgba(2,30,50,0.06);
+      min-width:240px;
+    }
+    .search input{
+      border:0;outline:none;font-size:14px;padding:6px 8px;width:220px;
+      background:transparent;
+    }
+    .btn{
+      background:var(--primary-dark);
+      color:#fff;padding:8px 12px;border-radius:8px;border:0;cursor:pointer;
+      font-weight:600;
+    }
+    .btn.ghost{background:transparent;border:1px solid rgba(255,255,255,0.18);}
+
+    /* main layout */
+    .container{max-width:var(--maxw);margin:26px auto;padding:0 18px;display:grid;grid-template-columns: 1fr 340px;gap:var(--gap)}
+    @media(max-width:980px){.container{grid-template-columns:1fr;}}
+    .main-column{min-width:0}
+    .sidebar{position:relative}
+
+    /* categories */
+    .categories{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:18px}
+    .cat{background:var(--card-bg);padding:8px 12px;border-radius:999px;border:1px solid #e6f3fb;color:var(--primary-dark);font-weight:600;cursor:pointer;box-shadow:var(--shadow);font-size:14px}
+    .cat.active{background:var(--primary);color:white;border-color:transparent}
+
+    /* destaque */
+    .feature{
+      background:var(--card-bg);
+      border-radius:var(--radius);
+      overflow:hidden;
+      box-shadow:var(--shadow);
+      display:flex;
+      gap:16px;
+      margin-bottom:18px;
+    }
+    .feature .thumb{
+      width:48%;min-height:220px;object-fit:cover;
+    }
+    .feature .meta{
+      padding:18px;flex:1;display:flex;flex-direction:column;justify-content:space-between;
+    }
+    .feature h2{margin:0 0 10px;font-size:22px;color:var(--primary-dark)}
+    .feature p{margin:0 0 14px;color:var(--muted)}
+
+    /* grid cards */
+    .grid{
+      display:grid;
+      grid-template-columns: repeat(2,1fr);
+      gap:16px;
+    }
+    @media(max-width:720px){.grid{grid-template-columns:1fr}}
+    .card{
+      background:var(--card-bg);border-radius:12px;overflow:hidden;box-shadow:var(--shadow);display:flex;flex-direction:column;
+    }
+    .card img{width:100%;height:160px;object-fit:cover}
+    .card .card-body{padding:12px 14px;flex:1;display:flex;flex-direction:column;justify-content:space-between}
+    .card .card-body h3{margin:0 0 8px;font-size:16px;color:var(--primary-dark)}
+    .card .card-body p{margin:0;color:var(--muted);font-size:14px}
+    .card .meta-line{display:flex;justify-content:space-between;align-items:center;margin-top:12px;font-size:13px;color:#7b8b93}
+
+    /* sidebar */
+    .sidebar .panel{background:var(--card-bg);border-radius:12px;padding:14px;box-shadow:var(--shadow);margin-bottom:16px}
+    .sidebar h4{margin:0 0 10px;color:var(--primary-dark)}
+    .sidebar ul{list-style:none;padding:0;margin:0}
+    .sidebar li{padding:8px 0;border-bottom:1px dashed #eef6fb;color:var(--muted)}
+    .small-list img{width:64px;height:48px;object-fit:cover;border-radius:8px;margin-right:10px}
+    .small-item{display:flex;align-items:center}
+
+    /* footer */
+    footer{margin-top:28px;padding:28px 18px;background:linear-gradient(180deg,#eaf8ff,#ffffff);border-top:1px solid #e6f8ff}
+    .footer-wrap{max-width:var(--maxw);margin:auto;display:flex;justify-content:space-between;gap:20px;align-items:center}
+    .footer-left p{margin:0;color:var(--muted)}
+    .footer-right a{color:var(--primary);text-decoration:none;font-weight:700}
+
+    /* back button fixed */
+    .back-btn{
+      position:fixed;right:18px;bottom:18px;background:var(--primary);color:#fff;padding:12px 14px;border-radius:10px;box-shadow:0 10px 30px rgba(3,103,166,0.18);
+      text-decoration:none;font-weight:700;z-index:80;
+    }
+
+    /* small Helpers */
+    .muted{color:var(--muted);font-size:13px}
+    .kicker{display:inline-block;background:#e8f9ff;color:var(--primary-dark);padding:6px 10px;border-radius:999px;font-weight:700;margin-bottom:10px}
+    .read-more{display:inline-block;margin-top:10px;color:var(--primary);font-weight:700;text-decoration:none}
+
+    /* accessibility tweaks */
+    a,button{outline-color: #ffd54f}
+  </style>
+</head>
+<body>
+
+  <!-- Topbar -->
+  <div class="topbar" role="banner">
+    <div class="wrap" style="max-width:1200px;margin:auto;display:flex;align-items:center;justify-content:space-between">
+      <a class="brand" href="index.html" aria-label="Voltar para página inicial">
+        <div class="logo" aria-hidden="true">A</div>
+        <div>
+          <h1>Portal Acessível</h1>
+          <p style="opacity:.9">Notícias em formato acessível</p>
+        </div>
+      </a>
+
+      <div class="nav-actions" role="navigation" aria-label="Navegação principal">
+        <div class="search" role="search" aria-label="Pesquisar notícias">
+          <svg width="16" height="16" viewBox="0 0 24 24" style="opacity:.8" aria-hidden="true"><path fill="#6b7c86" d="M9.5 3a6.5 6.5 0 106.5 6.5A6.5 6.5 0 009.5 3zm0 2a4.5 4.5 0 11-4.5 4.5A4.5 4.5 0 019.5 5z"/><path fill="#6b7c86" d="M20 20l-4.35-4.35"/></svg>
+          <input id="searchInput" type="search" placeholder="Pesquisar notícias, ex: Libras, saúde..." aria-label="Pesquisar notícias">
+          <button class="btn" id="clearSearch" title="Limpar busca" aria-label="Limpar busca" style="margin-left:8px">Limpar</button>
+        </div>
+        <button class="btn ghost" id="btn-all">Todas</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Content -->
+  <main class="container" role="main">
+
+    <!-- Main column -->
+    <section class="main-column" aria-labelledby="headline-title">
+
+      <!-- Categories -->
+      <div style="margin-bottom:12px">
+        <div class="categories" id="categories" role="list">
+          <button class="cat active" data-cat="all">Todas</button>
+          <button class="cat" data-cat="brasil">Brasil</button>
+          <button class="cat" data-cat="mundo">Mundo</button>
+          <button class="cat" data-cat="tecnologia">Tecnologia</button>
+          <button class="cat" data-cat="acessibilidade">Acessibilidade</button>
+          <button class="cat" data-cat="educacao">Educação</button>
+        </div>
+      </div>
+
+      <!-- Destaque principal -->
+      <article class="feature" aria-labelledby="headline-title">
+        <img class="thumb" src="https://picsum.photos/id/1011/900/500" alt="Destaque - inclusão digital">
+        <div class="meta">
+          <div>
+            <span class="kicker">DESTAQUE</span>
+            <h2 id="headline-title">Inclusão digital avança: ferramentas de Libras chegam a mais sites públicos</h2>
+            <p>Novas iniciativas públicas e privadas ampliam a presença de recursos como o VLibras, facilitando o acesso à informação para pessoas surdas em todo o país.</p>
+          </div>
+          <div style="display:flex;gap:12px;align-items:center">
+            <span class="muted">Publicado: 01 de Dezembro de 2025</span>
+            <a class="read-more" href="#feature-article">Ler notícia</a>
+          </div>
+        </div>
+      </article>
+
+      <!-- Grid de notícias -->
+      <div style="margin-top:18px">
+        <h3 style="margin:0 0 12px">Últimas notícias</h3>
+
+        <div class="grid" id="newsGrid" aria-live="polite">
+
+          <!-- card 1 -->
+          <article class="card" data-cat="acessibilidade" data-title="Ferramentas como VLibras ganham novas atualizações">
+            <img src="https://picsum.photos/id/1005/600/360" alt="VLibras em ação">
+            <div class="card-body">
+              <div>
+                <h3>Ferramentas como VLibras ganham novas atualizações</h3>
+                <p>Atualizações recentes melhoram precisão e integração com plataformas públicas, ampliando o alcance da tradução em Libras.</p>
+              </div>
+              <div class="meta-line">
+                <span class="muted">Acessibilidade • 30/11/2025</span>
+                <a href="#nota1" class="read-more">Ler</a>
+              </div>
+            </div>
+          </article>
+
+          <!-- card 2 -->
+          <article class="card" data-cat="tecnologia" data-title="Startups brasileiras desenvolvem IA para Libras">
+            <img src="https://picsum.photos/id/0/600/360" alt="Startups de tecnologia">
+            <div class="card-body">
+              <div>
+                <h3>Startups brasileiras desenvolvem IA para Libras</h3>
+                <p>Empresas nacionais investem em pesquisa para criar modelos que entendam e gerem sinais com maior naturalidade.</p>
+              </div>
+              <div class="meta-line">
+                <span class="muted">Tecnologia • 29/11/2025</span>
+                <a href="#nota2" class="read-more">Ler</a>
+              </div>
+            </div>
+          </article>
+
+          <!-- card 3 -->
+          <article class="card" data-cat="brasil" data-title="Política anuncia programa de inclusão digital">
+            <img src="https://picsum.photos/id/1015/600/360" alt="Política e inclusão">
+            <div class="card-body">
+              <div>
+                <h3>Política anuncia programa de inclusão digital</h3>
+                <p>Programa visa financiar adaptações em serviços públicos e formação de intérpretes de Libras em regiões remotas.</p>
+              </div>
+              <div class="meta-line">
+                <span class="muted">Brasil • 28/11/2025</span>
+                <a href="#nota3" class="read-more">Ler</a>
+              </div>
+            </div>
+          </article>
+
+          <!-- card 4 -->
+          <article class="card" data-cat="educacao" data-title="Universidades oferecem cursos de Libras online">
+            <img src="https://picsum.photos/id/1027/600/360" alt="Educação e Libras">
+            <div class="card-body">
+              <div>
+                <h3>Universidades oferecem cursos de Libras online</h3>
+                <p>Iniciativas públicas e privadas ampliam oferta de cursos EAD com conteúdo em Libras e legendas.</p>
+              </div>
+              <div class="meta-line">
+                <span class="muted">Educação • 25/11/2025</span>
+                <a href="#nota4" class="read-more">Ler</a>
+              </div>
+            </div>
+          </article>
+
+          <!-- card 5 -->
+          <article class="card" data-cat="mundo" data-title="Acordos internacionais para inclusão">
+            <img src="https://picsum.photos/id/1043/600/360" alt="Acordos internacionais">
+            <div class="card-body">
+              <div>
+                <h3>Acordos internacionais incentivam inclusão digital</h3>
+                <p>Países assinam acordos para troca de tecnologia assistiva e pesquisas em Libras e outras línguas de sinais.</p>
+              </div>
+              <div class="meta-line">
+                <span class="muted">Mundo • 24/11/2025</span>
+                <a href="#nota5" class="read-more">Ler</a>
+              </div>
+            </div>
+          </article>
+
+          <!-- card 6 -->
+          <article class="card" data-cat="acessibilidade" data-title="Campanhas públicas enfatizam direitos das pessoas surdas">
+            <img src="https://picsum.photos/id/1057/600/360" alt="Campanhas públicas">
+            <div class="card-body">
+              <div>
+                <h3>Campanhas públicas enfatizam direitos das pessoas surdas</h3>
+                <p>Novas campanhas visam conscientizar sobre acessibilidade, inclusão no trabalho e educação bilíngue.</p>
+              </div>
+              <div class="meta-line">
+                <span class="muted">Acessibilidade • 20/11/2025</span>
+                <a href="#nota6" class="read-more">Ler</a>
+              </div>
+            </div>
+          </article>
+
+        </div>
+      </div>
+
+    </section>
+
+    <!-- Sidebar -->
+    <aside class="sidebar" aria-labelledby="sidebar-heading">
+
+      <div class="panel" id="sidebar-heading">
+        <h4>Notícias por categoria</h4>
+        <ul>
+          <li><strong>Brasil</strong> — notícias nacionais e políticas públicas.</li>
+          <li><strong>Mundo</strong> — acordos, clima global e economia internacional.</li>
+          <li><strong>Tecnologia</strong> — inovações, IA e ferramentas de acessibilidade.</li>
+          <li><strong>Acessibilidade</strong> — projetos, leis, serviços e recursos.</li>
+          <li><strong>Educação</strong> — cursos, ENEM, universidades e políticas educacionais.</li>
+        </ul>
+      </div>
+
+      <div class="panel">
+        <h4>Mais lidas</h4>
+        <div style="display:flex;flex-direction:column;gap:10px">
+          <div class="small-item">
+            <img src="https://picsum.photos/id/1005/140/90" alt="Mini 1">
+            <div>
+              <div style="font-weight:700">VLibras atinge grande número de acessos</div>
+              <div class="muted">Acessibilidade • 30/11/2025</div>
+            </div>
+          </div>
+
+          <div class="small-item">
+            <img src="https://picsum.photos/id/0/140/90" alt="Mini 2">
+            <div>
+              <div style="font-weight:700">Startups de Libras recebem investimentos</div>
+              <div class="muted">Tecnologia • 29/11/2025</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="panel">
+        <h4>Sobre este portal</h4>
+        <p class="muted" style="margin:0">Projeto criado para TCC — portal estático com foco em acessibilidade e demonstração do uso do VLibras.</p>
+      </div>
+
+    </aside>
+
+  </main>
+
+  <!-- footer -->
+  <footer role="contentinfo">
+    <div class="footer-wrap">
+      <div class="footer-left">
+        <p>Portal Acessível — Projeto de TCC • Desenvolvido para fins acadêmicos</p>
+      </div>
+      <div class="footer-right">
+        <a href="servicos.html">Serviços do Governo</a> &nbsp; • &nbsp;
+        <a href="videos.html">Vídeos Educativos</a> &nbsp; • &nbsp;
+        <a href="index.html">Voltar ao Início</a>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Back to Index fixed button -->
+  <a class="back-btn" href="index.html" aria-label="Voltar ao index">⬅ Voltar</a>
+
+  <!-- VLibras -->
+  <div vw class="enabled" aria-hidden="false">
+    <div vw-access-button class="active" aria-hidden="false"></div>
+    <div vw-plugin-wrapper>
+      <div class="vw-plugin-top-wrapper"></div>
+    </div>
+  </div>
+  <script src="https://vlibras.gov.br/app/vlibras-plugin.js"></script>
+  <script>new window.VLibras.Widget('https://vlibras.gov.br/app');</script>
+
+  <!-- Scripts: busca e filtros (estático) -->
+  <script>
+    // cache nodes
+    const searchInput = document.getElementById('searchInput');
+    const clearBtn = document.getElementById('clearSearch');
+    const newsGrid = document.getElementById('newsGrid');
+    const cats = Array.from(document.querySelectorAll('.cat'));
+    const btnAll = document.getElementById('btn-all');
+
+    // helper: get all articles (cards)
+    function getAllArticles(){
+      return Array.from(newsGrid.querySelectorAll('.card'));
+    }
+
+    // filter by category
+    function filterByCategory(cat){
+      const cards = getAllArticles();
+      cards.forEach(card=>{
+        const cardCat = card.getAttribute('data-cat');
+        const title = card.getAttribute('data-title') || '';
+        const matchesCat = (cat === 'all') || (cardCat === cat);
+        const matchesSearch = title.toLowerCase().includes(searchInput.value.trim().toLowerCase());
+        if(matchesCat && matchesSearch){
+          card.style.display = '';
+        } else {
+          card.style.display = 'none';
+        }
+      });
+    }
+
+    // category buttons
+    cats.forEach(c=>{
+      c.addEventListener('click', ()=>{
+        cats.forEach(x=>x.classList.remove('active'));
+        c.classList.add('active');
+        const cat = c.getAttribute('data-cat');
+        filterByCategory(cat);
+      });
+    });
+
+    // search
+    function performSearch(){
+      const q = searchInput.value.trim().toLowerCase();
+      const active = document.querySelector('.cat.active').getAttribute('data-cat');
+      const cards = getAllArticles();
+      cards.forEach(card=>{
+        const title = card.getAttribute('data-title').toLowerCase();
+        const excerpt = card.querySelector('.card-body p')?.textContent.toLowerCase() || '';
+        const matchesText = title.includes(q) || excerpt.includes(q);
+        const matchesCat = (active === 'all') || (card.getAttribute('data-cat') === active);
+        card.style.display = (matchesText && matchesCat) ? '' : 'none';
+      });
+    }
+
+    searchInput.addEventListener('input', performSearch);
+    clearBtn.addEventListener('click', ()=>{
+      searchInput.value='';
+      performSearch();
+      searchInput.focus();
+    });
+
+    // 'Todas' button quick
+    btnAll.addEventListener('click', ()=>{
+      document.querySelector('.cat.active').classList.remove('active');
+      document.querySelector('.cat[data-cat="all"]').classList.add('active');
+      searchInput.value='';
+      performSearch();
+    });
+
+    // initial (ensure all visible)
+    performSearch();
+
+    // keyboard accessibility: focus outlines for keyboard users
+    document.addEventListener('keydown', (e)=>{
+      if(e.key === 'Escape'){ searchInput.value=''; performSearch(); }
+    });
+  </script>
+
+</body>
+</html>

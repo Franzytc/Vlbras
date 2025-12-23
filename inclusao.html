@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Inclusão e Acessibilidade</title>
+
+    <style>
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background: linear-gradient(135deg, #c3e7ff 50%, #b0fff4 100%);
+            background-attachment: fixed;
+        }
+
+        header {
+            background: #004aad;
+            padding: 25px;
+            color: white;
+            text-align: center;
+            font-size: 28px;
+            font-weight: bold;
+        }
+
+        .container {
+            width: 90%;
+            margin: auto;
+            padding: 20px;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 20px;
+        }
+
+        .bloco {
+            background: white;
+            padding: 20px;
+            border-radius: 12px;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+            transition: 0.3s;
+            cursor: pointer;
+            text-decoration: none;
+            color: #004aad;
+        }
+
+        .bloco:hover {
+            transform: scale(1.05);
+            background: #f1faff;
+        }
+
+        h2 {
+            margin-top: 0;
+        }
+
+        p {
+            color: #333;
+            font-size: 15px;
+        }
+
+        .voltar {
+            display: block;
+            width: fit-content;
+            margin: 25px auto;
+            padding: 12px 20px;
+            background: #004aad;
+            color: white;
+            border-radius: 8px;
+            text-decoration: none;
+            font-size: 18px;
+        }
+
+        .voltar:hover {
+            background: #00327a;
+        }
+    </style>
+</head>
+<body>
+
+<header>
+    ♿ Inclusão e Acessibilidade
+</header>
+
+<section class="container">
+
+    <!-- BLOCO 1 -->
+    <a class="bloco" href="https://www.gov.br/governodigital/pt-br/acessibilidade-digital" target="_blank">
+        <h2>Acessibilidade Digital – Gov</h2>
+        <p>Orientações do Governo Federal para tornar sites, aplicativos e serviços digitais mais acessíveis.</p>
+        <p><strong>Onde encontrar:</strong> Portal Governo Digital.</p>
+    </a>
+
+    <!-- BLOCO 2 -->
+    <a class="bloco" href="https://www.gov.br/mdh/pt-br/assuntos/pessoa-com-deficiencia" target="_blank">
+        <h2>Secretaria Nacional da Pessoa com Deficiência</h2>
+        <p>Informações oficiais sobre direitos, programas, inclusão e políticas públicas para PCD.</p>
+        <p><strong>Onde encontrar:</strong> Ministério dos Direitos Humanos.</p>
+    </a>
+
+    <!-- BLOCO 3 -->
+    <a class="bloco" href="https://www.gov.br/inep/pt-br/areas-de-atuacao/avaliacao-e-exames-educacionais/enem/atendimento-especializado-e-tratamento-diferenciado" target="_blank">
+        <h2>Atendimento Especial – ENEM e Provas</h2>
+        <p>Direitos de inscritos com deficiência em exames oficiais, incluindo surdez e deficiência auditiva.</p>
+        <p><strong>Onde encontrar:</strong> INEP – ENEM.</p>
+    </a>
+
+    <!-- BLOCO 4 -->
+    <a class="bloco" href="https://www.vlibras.gov.br" target="_blank">
+        <h2>VLibras – Tradutor Oficial</h2>
+        <p>Sistema para traduzir sites, textos e conteúdos para Libras. Funciona em páginas web e aplicativos.</p>
+        <p><strong>Onde encontrar:</strong> Site oficial do VLibras.</p>
+    </a>
+
+</section>
+
+<a class="voltar" href="index.html">⬅ Voltar ao Início</a>
+
+<!-- VLibras -->
+<div vw class="enabled">
+    <div vw-access-button class="active"></div>
+    <div vw-plugin-wrapper>
+        <div class="vw-plugin-top-wrapper"></div>
+    </div>
+</div>
+
+<script src="https://vlibras.gov.br/app/vlibras-plugin.js"></script>
+<script>
+    new window.VLibras.Widget('https://vlibras.gov.br/app');
+</script>
+
+</body>
+</html>

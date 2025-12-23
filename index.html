@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Projeto de Acessibilidade</title>
+
+    <style>
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background: linear-gradient(135deg, #c3e7ff 50%, #b0fff4 100%);
+            background-attachment: fixed;
+        }
+
+        header {
+            background: #004aad;
+            padding: 20px;
+            color: white;
+            text-align: center;
+            font-size: 26px;
+            font-weight: bold;
+        }
+
+        .container {
+            width: 90%;
+            margin: auto;
+            padding: 20px;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+            gap: 20px;
+        }
+
+        .bloco {
+            background: white;
+            border-radius: 12px;
+            padding: 20px;
+            text-decoration: none;
+            color: black;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+            transition: 0.3s;
+        }
+
+        .bloco:hover {
+            transform: scale(1.05);
+            background: #f1faff;
+        }
+
+        .bloco h2 {
+            margin-top: 0;
+        }
+    </style>
+</head>
+<body>
+
+<header>
+    Plataforma de Acessibilidade
+</header>
+
+<section class="container">
+
+    <!-- Bloco 1: Inclusão e Acessibilidade -->
+    <a href="inclusao.html" class="bloco">
+        <h2>♿ Inclusão e Acessibilidade</h2>
+        <p>Informações sobre recursos e tecnologias voltadas para a acessibilidade no Brasil.</p>
+    </a>
+
+    <!-- Bloco 2: Serviços do Governo -->
+    <a href="servicos.html" class="bloco">
+        <h2>🏛️ Serviços do Governo</h2>
+        <p>Conheça serviços gratuitos que o governo oferece para pessoas surdas e com deficiência.</p>
+    </a>
+
+    <!-- Bloco 3: Portal de Notícias -->
+    <a href="noticias.html" class="bloco">
+        <h2>📰 Portal de Notícias</h2>
+        <p>Leia notícias atualizadas criadas especialmente para serem acessíveis.</p>
+    </a>
+
+    <!-- Bloco 4: Vídeos Educativos -->
+    <a href="videos.html" class="bloco">
+        <h2>📚 Vídeos Educativos</h2>
+        <p>Assista vídeos educativos do YouTube sobre inclusão, acessibilidade e cidadania.</p>
+    </a>
+
+    <!-- Bloco 5: TCC -->
+    <a href="tcc.html" class="bloco">
+        <h2>📘 TCC – Projeto de Acessibilidade</h2>
+        <p>Acompanhe o desenvolvimento do TCC, incluindo capítulos, pesquisa, anexos e referências.</p>
+    </a>
+
+    <!-- Bloco 6: Equipe do Projeto -->
+    <a href="equipe.html" class="bloco">
+        <h2>👥 Equipe do Projeto</h2>
+        <p>Conheça quem participou do desenvolvimento do projeto e suas funções.</p>
+    </a>
+
+</section>
+
+<!-- VLibras -->
+<div vw class="enabled">
+    <div vw-access-button class="active"></div>
+    <div vw-plugin-wrapper>
+        <div class="vw-plugin-top-wrapper"></div>
+    </div>
+</div>
+
+<script src="https://vlibras.gov.br/app/vlibras-plugin.js"></script>
+<script>
+    new window.VLibras.Widget('https://vlibras.gov.br/app');
+</script>
+
+</body>
+</html>

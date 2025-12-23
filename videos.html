@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vídeos Educativos</title>
+
+    <style>
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background: linear-gradient(135deg, #c3e7ff 50%, #b0fff4 100%);
+            background-attachment: fixed;
+        }
+
+        header {
+            background: #004aad;
+            padding: 20px;
+            color: white;
+            text-align: center;
+            font-size: 26px;
+            font-weight: bold;
+        }
+
+        .container {
+            width: 90%;
+            margin: auto;
+            padding: 20px;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 20px;
+        }
+
+        .video-bloco {
+            background: white;
+            border-radius: 12px;
+            padding: 15px;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+            transition: 0.3s;
+        }
+
+        .video-bloco:hover {
+            transform: scale(1.05);
+            background: #f1faff;
+        }
+
+        .thumb {
+            width: 100%;
+            height: 180px;
+            object-fit: cover;
+            border-radius: 10px;
+            margin-bottom: 10px;
+        }
+
+        a {
+            text-decoration: none;
+            color: #004aad;
+            font-weight: bold;
+        }
+
+        p {
+            color: #333;
+        }
+
+        .voltar {
+            display: block;
+            width: fit-content;
+            margin: 20px auto;
+            padding: 10px 20px;
+            background: #004aad;
+            color: white;
+            border-radius: 8px;
+            text-decoration: none;
+            font-size: 18px;
+        }
+
+        .voltar:hover {
+            background: #00327a;
+        }
+    </style>
+</head>
+<body>
+
+<header>
+    📚 Vídeos Educativos
+</header>
+
+<section class="container">
+
+    <!-- Vídeo 1 -->
+    <div class="video-bloco">
+        <img class="thumb" src="imagem1.jpg" alt="Acessibilidade">
+        <h3>O que é Acessibilidade?</h3>
+        <p>Vídeo explicando o conceito de acessibilidade e sua importância na sociedade.</p>
+        <a href="https://youtu.be/zg6dk6F3Cp8" target="_blank">Assistir</a>
+    </div>
+
+    <!-- Vídeo 2 -->
+    <div class="video-bloco">
+        <img class="thumb" src="imagem2.jpg" alt="Libras">
+        <h3>Introdução à Libras</h3>
+        <p>Aulas básicas de Libras para iniciantes aprenderem sinais essenciais.</p>
+        <a href="https://youtu.be/q11lP0ogrTI" target="_blank">Assistir</a>
+    </div>
+
+    <!-- Vídeo 3 -->
+    <div class="video-bloco">
+        <img class="thumb" src="imagem3.jpg" alt="Tecnologia VLibras">
+        <h3>Como funciona o VLibras?</h3>
+        <p>Entenda como o VLibras traduz textos e sites para Libras.</p>
+        <a href="https://youtu.be/_CYtlJ0LR5M" target="_blank">Assistir</a>
+    </div>
+
+    <!-- Vídeo 4 -->
+    <div class="video-bloco">
+        <img class="thumb" src="imagem4.jpg" alt="Direitos PCD">
+        <h3>Direitos das Pessoas com Deficiência</h3>
+        <p>Conteúdo educativo sobre direitos garantidos pela lei.</p>
+        <a href="https://youtu.be/u62NnbOgEA4" target="_blank">Assistir</a>
+    </div>
+
+</section>
+
+<a class="voltar" href="index.html">⬅ Voltar ao Início</a>
+
+<!-- VLibras -->
+<div vw class="enabled">
+    <div vw-access-button class="active"></div>
+    <div vw-plugin-wrapper>
+        <div class="vw-plugin-top-wrapper"></div>
+    </div>
+</div>
+
+<script src="https://vlibras.gov.br/app/vlibras-plugin.js"></script>
+<script>
+    new window.VLibras.Widget('https://vlibras.gov.br/app');
+</script>
+
+</body>
+</html>
